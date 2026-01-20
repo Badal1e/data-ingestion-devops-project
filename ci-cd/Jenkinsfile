@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    environment {
+        AWS_REGION = "ap-south-1"
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Badal1e/data-ingestion-project.git'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh 'pip install -r requirements.txt'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'python -m compileall .'
+            }
+        }
+        stage('Deploy Lambda') {
+            steps {
+                sh 'zip -r lambda.zip lambda/'
+                sh 'aws lambda update-function-code --function-name data-ingestion --zip-file fileb://lambda.zip'
+            }
+        }
+    }
+}
