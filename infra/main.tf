@@ -7,14 +7,17 @@ resource "aws_s3_bucket" "data_bucket" {
 }
 
 resource "aws_db_instance" "rds" {
-  allocated_storage = 20
-  engine = "mysql"
-  instance_class = "db.t2.micro"
-  username = "admin"
-  password = "admin123"
-  db_name = "ingestiondb"
-  skip_final_snapshot = true
+  allocated_storage    = 20
+  engine               = "mysql"
+  engine_version       = "8.0"
+  instance_class       = "db.t3.micro"
+  username             = "admin"
+  password             = "admin123"
+  db_name              = "ingestiondb"
+  skip_final_snapshot  = true
+  publicly_accessible  = false
 }
+
 
 resource "aws_security_group" "lambda_sg" {
   name = "lambda-sg"
