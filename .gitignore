@@ -1,0 +1,6 @@
+# Secrets
+*.pem
+*.key
+*.csv
+*accessKeys*
+.env
