@@ -1,6 +1,6 @@
 import boto3
 import csv
-from validation import validate_row
+from validation.validate_data import validate_row
 from db.db_writer import insert_records
 
 s3 = boto3.client('s3')
